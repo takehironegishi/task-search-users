@@ -8,6 +8,7 @@ const SearchForm = (): JSX.Element => {
 
   const searchUser = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
+    // TODO GitHubAPIの実装  https://api.github.com/search/users?q=tom ←tomで検索
     dispatch({
       type: SEARCH_USERS,
       userName,
