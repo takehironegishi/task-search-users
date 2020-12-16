@@ -3,7 +3,7 @@ import React, { ChangeEvent, useState } from "react";
 const SearchForm = (): JSX.Element => {
   const [userName, setUserName] = useState<string | number>('');
 
-  const searchUser: (e: React.MouseEvent<HTMLButtonElement>) => void = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  const searchUser = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
     setUserName('');
   };
