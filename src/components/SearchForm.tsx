@@ -1,10 +1,17 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useContext, useState } from "react";
+import UserContext from "../contexts/UserContext";
+import { SEARCH_USERS } from "../reducers";
 
 const SearchForm = (): JSX.Element => {
   const [userName, setUserName] = useState<string | number>('');
+  const { dispatch } = useContext(UserContext);
 
   const searchUser = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
+    dispatch({
+      type: SEARCH_USERS,
+      userName,
+    });
     setUserName('');
   };
 
@@ -17,7 +24,7 @@ const SearchForm = (): JSX.Element => {
           value={userName}
           onChange={(e:ChangeEvent<HTMLInputElement>): void => {setUserName(e.target.value)}}
         />
-        <button onClick={searchUser}>検索</button>
+        <button onClick={searchUser} disabled={userName === ''}>検索</button>
       </form>
     </>
   );
