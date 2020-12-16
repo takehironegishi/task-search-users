@@ -1,18 +1,24 @@
 import React, { ChangeEvent, useContext, useState } from "react";
 import UserContext from "../contexts/UserContext";
-import { SEARCH_USERS } from "../reducers";
+import useAxios from "axios-hooks";
 
+// TODO 型指定
 const SearchForm = (): JSX.Element => {
   const [userName, setUserName] = useState<string | number>('');
   const { dispatch } = useContext(UserContext);
+  const [{ loading }, getUsers] = useAxios({ method: "GET" }, { manual: true });
 
   const searchUser = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
-    dispatch({
-      type: SEARCH_USERS,
-      userName,
-    });
-    setUserName('');
+    getUsers({ url: `https://api.github.com/search/users?q=${userName}` })
+        .then((data) => {
+          const userData = data.data.items;
+          dispatch({
+            type: 'search_users',
+            userData,
+          });
+          setUserName('');
+        });
   };
 
   return (
@@ -26,6 +32,7 @@ const SearchForm = (): JSX.Element => {
         />
         <button onClick={searchUser} disabled={userName === ''}>検索</button>
       </form>
+      <p>{loading? 'Loading...': ''}</p>
     </>
   );
 };
