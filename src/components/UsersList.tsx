@@ -1,12 +1,13 @@
 import React, {useContext, useEffect, useState} from "react";
 import User from './User';
+import Button from "./Button";
 import UserContext from "../contexts/UserContext";
 
 
-const UsersList = (): JSX.Element => {
+const UsersList = ({state}: any): JSX.Element => {
   const [isFirstLoading, setIsFirstLoading] = useState(true);
   const [ifNothing, setIfNothing] = useState('');
-  const { state } = useContext(UserContext);
+  const { pageNumber } = useContext(UserContext);
 
   useEffect(() => {
     if (isFirstLoading) {
@@ -36,6 +37,13 @@ const UsersList = (): JSX.Element => {
         {[...state].map((user: any) => <User key={user.id} user={user} />)}
         </tbody>
       </table>
+      {
+        state.length !== 0
+        ?
+            <div><Button disabled={pageNumber === 1} value={'戻る'} /><Button disabled={false} value={'進む'} /></div>
+        :
+            ''
+      }
       <p>{ifNothing}</p>
     </>
   );
