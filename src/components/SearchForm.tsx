@@ -10,7 +10,7 @@ const SearchForm = (): JSX.Element => {
 
   const searchUser = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
-    getUsers({ url: `https://api.github.com/search/users?q=${userName}` })
+    getUsers({ url: `https://api.github.com/search/users?q=${userName}&per_page=30&page=1` })
         .then((data) => {
           const userData = data.data.items;
           dispatch({
