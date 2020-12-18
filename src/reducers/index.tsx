@@ -1,11 +1,14 @@
-// TODO 型指定
-const users = (state: any = [], action: any) => {
+type ActionType = {
+  type: 'search_users';
+  userData: object[];
+};
+
+const users = (state: object[] = [], action: ActionType): object[] | never => {
     switch (action.type) {
       case 'search_users':
-        console.log(action.userData); // TODO debug用のため削除
-        return action.userData;
+        return [...action.userData];
       default:
-        return state;
+        throw new Error();
     }
 };
 
