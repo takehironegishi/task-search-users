@@ -7,11 +7,11 @@ import useAxios from "axios-hooks";
 
 const App = (): JSX.Element => {
   // TODO initialstateの型指定
-  const initialState: any = '';
+  const initialState: object[] = [];
   const [state, dispatch] = useReducer(users, initialState);
   const [pageNumber, setPageNumber] = useState(1);
   const [userName, setUserName] = useState('');
-  const [{ loading }, getUsers] = useAxios({ method: "GET" }, { manual: true });
+  const [{ loading, error }, getUsers] = useAxios({ method: "GET" }, { manual: true });
 
   return (
     <UserContext.Provider value={{
@@ -19,9 +19,10 @@ const App = (): JSX.Element => {
       pageNumber,
       setPageNumber,
       getUsers,
+      loading,
       userName,
     }}>
-      <SearchForm loading={loading} setUserName={setUserName} />
+      <SearchForm setUserName={setUserName} error={error}/>
       <UsersList state={state} />
     </UserContext.Provider>
   );

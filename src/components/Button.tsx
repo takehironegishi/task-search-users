@@ -17,12 +17,13 @@ const Button = ({disabled, value}: any): JSX.Element => {
 
     getUsers({ url: `https://api.github.com/search/users?q=${userName}&per_page=30&page=${pageNumber}` })
         .then((data: any) => {
-          const userData = data.data.items;
+          const userData: [] = data.data.items;
           dispatch({
             type: 'search_users',
             userData,
           });
         });
+    window.scrollTo(0,0);
   };
 
   return <button onClick={searchUser} disabled={disabled}>{value}</button>

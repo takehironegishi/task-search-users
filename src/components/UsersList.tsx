@@ -7,7 +7,7 @@ import UserContext from "../contexts/UserContext";
 const UsersList = ({state}: any): JSX.Element => {
   const [isFirstLoading, setIsFirstLoading] = useState(true);
   const [ifNothing, setIfNothing] = useState('');
-  const { pageNumber } = useContext(UserContext);
+  const { pageNumber, loading } = useContext(UserContext);
 
   useEffect(() => {
     if (isFirstLoading) {
@@ -26,6 +26,13 @@ const UsersList = ({state}: any): JSX.Element => {
   return (
     <>
       <h2>ユーザー一覧</h2>
+      {
+        state.length !== 0
+            ?
+            <div><Button disabled={pageNumber === 1 || loading} value={'戻る'} /><Button disabled={loading} value={'進む'} /></div>
+            :
+            ''
+      }
       <table>
         <thead>
         <tr>
@@ -40,7 +47,7 @@ const UsersList = ({state}: any): JSX.Element => {
       {
         state.length !== 0
         ?
-            <div><Button disabled={pageNumber === 1} value={'戻る'} /><Button disabled={false} value={'進む'} /></div>
+            <div><Button disabled={pageNumber === 1 || loading} value={'戻る'} /><Button disabled={loading} value={'進む'} /></div>
         :
             ''
       }

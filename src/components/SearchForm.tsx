@@ -3,8 +3,8 @@ import Button from "./Button";
 import UserContext from "../contexts/UserContext";
 
 // TODO 型指定
-const SearchForm = ({loading, setUserName}: any): JSX.Element => {
-  const { userName } = useContext(UserContext);
+const SearchForm = ({setUserName, error}: any): JSX.Element => {
+  const { userName, loading } = useContext(UserContext);
 
   return (
     <>
@@ -15,9 +15,10 @@ const SearchForm = ({loading, setUserName}: any): JSX.Element => {
           value={userName}
           onChange={(e:ChangeEvent<HTMLInputElement>): void => {setUserName(e.target.value)}}
         />
-        <Button disabled={userName === ''} value={'検索'} />
+        <Button disabled={userName === '' || loading} value={'検索'} />
       </form>
       <p>{loading? 'Loading...': ''}</p>
+      <p>{error? 'エラーだよ！ページを読み込めなかったよ！リロードするかなんかしてね！' : ''}</p>
     </>
   );
 };
