@@ -1,9 +1,14 @@
 import React, { ChangeEvent, useContext } from "react";
 import Button from "./Button";
 import UserContext from "../contexts/UserContext";
+import { AxiosError } from "axios";
 
-// TODO 型指定
-const SearchForm = ({setUserName, error}: any): JSX.Element => {
+type SearchFormType = {
+  setUserName: React.Dispatch<React.SetStateAction<string | number>>;
+  error: AxiosError<boolean> | undefined;
+}
+
+const SearchForm: React.FC<SearchFormType> = ({ setUserName, error }): JSX.Element => {
   const { userName, loading } = useContext(UserContext);
 
   return (

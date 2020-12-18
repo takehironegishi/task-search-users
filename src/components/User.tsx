@@ -1,7 +1,7 @@
 import React from 'react';
 
-const User = (user: any): JSX.Element => {
-  const _user = user.user;
+const User: React.FC<any> = (user): JSX.Element => {
+  const _user: any = user.user;
 
   return (
     <tr>
