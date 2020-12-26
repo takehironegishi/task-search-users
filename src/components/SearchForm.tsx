@@ -1,14 +1,12 @@
-import React, { ChangeEvent, useContext } from "react";
-import Button from "./Button";
-import UserContext from "../contexts/UserContext";
-import { AxiosError } from "axios";
+import React, { ChangeEvent, useContext } from 'react';
+import Button from './Button';
+import UserContext from '../contexts/UserContext';
+import { SearchFormType } from '../types/type';
 
-type SearchFormType = {
-  setUserName: React.Dispatch<React.SetStateAction<string | number>>;
-  error: AxiosError<boolean> | undefined;
-}
-
-const SearchForm: React.FC<SearchFormType> = ({ setUserName, error }): JSX.Element => {
+const SearchForm: React.FC<SearchFormType> = ({
+  setUserName,
+  error,
+}): JSX.Element => {
   const { userName, loading } = useContext(UserContext);
 
   return (
@@ -18,12 +16,18 @@ const SearchForm: React.FC<SearchFormType> = ({ setUserName, error }): JSX.Eleme
         <input
           type="text"
           value={userName}
-          onChange={(e:ChangeEvent<HTMLInputElement>): void => {setUserName(e.target.value)}}
+          onChange={(e: ChangeEvent<HTMLInputElement>): void => {
+            setUserName(e.target.value);
+          }}
         />
         <Button disabled={userName === '' || loading} value={'検索'} />
       </form>
-      <p>{loading? 'Loading...': ''}</p>
-      <p>{error? 'エラーだよ！ページを読み込めなかったよ！リロードするかなんかしてね！' : ''}</p>
+      <p>{loading ? 'Loading...' : ''}</p>
+      <p>
+        {error
+          ? 'エラーだよ！ページを読み込めなかったよ！リロードするかなんかしてね！'
+          : ''}
+      </p>
     </>
   );
 };

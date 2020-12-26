@@ -1,10 +1,6 @@
 import React, { useContext } from 'react';
 import UserContext from '../contexts/UserContext';
-
-type ButtonType = {
-  disabled: boolean;
-  value: '進む' | '戻る' | '検索';
-};
+import { ButtonType } from '../types/type';
 
 const Button: React.FC<ButtonType> = ({ disabled, value }): JSX.Element => {
   const {
@@ -15,9 +11,7 @@ const Button: React.FC<ButtonType> = ({ disabled, value }): JSX.Element => {
     setPageNumber,
   } = useContext(UserContext);
 
-  const searchUser: (e: React.MouseEvent<HTMLButtonElement>) => void = (
-    e: React.MouseEvent<HTMLButtonElement>
-  ): void => {
+  const searchUser = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
 
     let newPageNumber: number;
