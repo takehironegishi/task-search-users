@@ -1,9 +1,10 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from 'react';
 import User from './User';
-import Button from "./Button";
-import UserContext from "../contexts/UserContext";
+import Button from './Button';
+import UserContext from '../contexts/UserContext';
+import { UserType } from '../types/type';
 
-const UsersList: React.FC<{ state: object[] }> = ({ state }): JSX.Element => {
+const UsersList: React.FC<{ state: UserType[] }> = ({ state }): JSX.Element => {
   const [isFirstLoading, setIsFirstLoading] = useState<boolean>(true);
   const [ifNothing, setIfNothing] = useState<string>('');
   const { pageNumber, loading } = useContext(UserContext);
@@ -13,7 +14,7 @@ const UsersList: React.FC<{ state: object[] }> = ({ state }): JSX.Element => {
       setIsFirstLoading(false);
       setIfNothing('');
     } else {
-      if(state.length === 0) {
+      if (state.length === 0) {
         setIfNothing('ユーザーが見つかりませんでした。');
       } else {
         setIfNothing('');
@@ -25,31 +26,35 @@ const UsersList: React.FC<{ state: object[] }> = ({ state }): JSX.Element => {
   return (
     <>
       <h2>ユーザー一覧</h2>
-      {
-        state.length !== 0
-        ?
-            <div><Button disabled={pageNumber === 1 || loading} value={'戻る'} /><Button disabled={loading} value={'進む'} /></div>
-        :
-            ''
-      }
+      {state.length !== 0 ? (
+        <div>
+          <Button disabled={pageNumber === 1 || loading} value={'戻る'} />
+          <Button disabled={loading} value={'進む'} />
+        </div>
+      ) : (
+        ''
+      )}
       <table>
         <thead>
-        <tr>
-          <th>ユーザーアイコン</th>
-          <th>ユーザー名</th>
-        </tr>
+          <tr>
+            <th>ユーザーアイコン</th>
+            <th>ユーザー名</th>
+          </tr>
         </thead>
         <tbody>
-        {[...state].map((user: any) => <User key={user.id} user={user} />)}
+          {[...state].map((user: UserType) => (
+            <User key={user.id} user={user} />
+          ))}
         </tbody>
       </table>
-      {
-        state.length !== 0
-        ?
-            <div><Button disabled={pageNumber === 1 || loading} value={'戻る'} /><Button disabled={loading} value={'進む'} /></div>
-        :
-            ''
-      }
+      {state.length !== 0 ? (
+        <div>
+          <Button disabled={pageNumber === 1 || loading} value={'戻る'} />
+          <Button disabled={loading} value={'進む'} />
+        </div>
+      ) : (
+        ''
+      )}
       <p>{ifNothing}</p>
     </>
   );
